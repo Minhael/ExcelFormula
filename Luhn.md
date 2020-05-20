@@ -5,7 +5,7 @@
 
 //  Remove the last check digit from original number and split into array in reverse order
 
-PAN=MID(TEXTJOIN("",1,MID(MID(J2, 1, LEN(J2) - 1),{20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1},1)),ROW(INDIRECT("1:"&LEN(J2)-1)),1)
+PAN=MID(TEXTJOIN("",1,MID(MID(J2, 1, LEN(J2) - 1),LEN(J2) - ROW(INDIRECT("1:"&LEN(J2)-1)),1)),ROW(INDIRECT("1:"&LEN(J2)-1)),1)
 
 
 //  Prepare the multiply factor array with correct length
@@ -37,6 +37,6 @@ SUM = SUMPRODUCT(1*SUMDIGITS)
 CHECKDIGIT = MOD(SUM * 9, 10)
 
 
-//  Final formula
+//  Final formula, examinate value at A1
 
-=MOD(SUMPRODUCT(1*MID(TEXT(MID(TEXTJOIN("",1,MID(MID(J2, 1, LEN(J2) - 1),{20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3,2,1},1)),ROW(INDIRECT("1:"&LEN(J2)-1)),1) * (MOD(ROW(INDIRECT("1:"&LEN(J2)-1)), 2) + 1), "00"), {1,2}, 1)) * 9, 10)
+=MOD(SUMPRODUCT(1*MID(TEXT(MID(TEXTJOIN("",1,MID(MID(A1, 1, LEN(A1) - 1),LEN(A1) - ROW(INDIRECT("1:"&LEN(A1)-1)),1)),ROW(INDIRECT("1:"&LEN(A1)-1)),1) * (MOD(ROW(INDIRECT("1:"&LEN(A1)-1)), 2) + 1), "00"), {1,2}, 1)) * 9, 10)
